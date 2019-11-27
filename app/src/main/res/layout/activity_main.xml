@@ -18,15 +18,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        app:layout_constraintStart_toEndOf="@+id/tempetureValue"
-        app:layout_constraintTop_toTopOf="@+id/tempetureValue"
+        app:layout_constraintStart_toEndOf="@+id/temperatureValue"
+        app:layout_constraintTop_toTopOf="@+id/temperatureValue"
         app:srcCompat="@drawable/degree" />
 
     <TextView
-        android:id="@+id/tempetureValue"
+        android:id="@+id/temperatureValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="100"
+        android:text="@{String.valueOf(Math.round(weather.temperature)), default=`100`}"
         android:textColor="@android:color/white"
         android:textSize="150sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,9 +38,9 @@
         android:id="@+id/timeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="At 7:00 PM it will be"
+        android:text="@{`At ` + String.valueOf(weather.formatedTime) + ` it will be`, default=`At 5:00 PM it will be`}"
         android:textColor="@color/half_white"
-        app:layout_constraintBottom_toTopOf="@+id/tempetureValue"
+        app:layout_constraintBottom_toTopOf="@+id/temperatureValue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -89,14 +89,14 @@
         android:textColor="@color/half_white"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tempetureValue" />
+        app:layout_constraintTop_toBottomOf="@+id/temperatureValue" />
 
     <TextView
         android:id="@+id/humidityValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="0.88"
+        android:text="@{String.valueOf(weather.humidity), default=`0.88`}"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/humidityLabel"
@@ -112,14 +112,14 @@
         android:textColor="@color/half_white"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/tempetureValue" />
+        app:layout_constraintTop_toBottomOf="@+id/temperatureValue" />
 
     <TextView
         android:id="@+id/precipitationValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="100%"
+        android:text="@{String.valueOf(Math.round(weather.precipChance * 100)) + `%`, default=`50%`}"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/precipitationLabel"
@@ -130,7 +130,7 @@
         android:id="@+id/summaryValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{weather.summary}"
+        android:text="@{weather.summary, default=`Stormy with a chance of meatballs`}"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -147,6 +147,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/refreshImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="refreshOnClick"
+        app:layout_constraintBottom_toTopOf="@+id/locationValue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/refresh" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
